@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMI calculator</title>
+    <link rel="stylesheet" href="css/bootstrap5.min.css" />
+    <style type="text/css">
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+        width: 90px;
+        height: 20px;
+      }
+      body {
+        height: 100vh;
+        position: relative;
+      }
+      .emi-calculator {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 70vh;
+        width: 500px;
+        background-color: antiquewhite;
+      }
+      .emisect {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="emi-calculator shadow-sm">
+      <div class="emisect fs-6">
+        <label for="principal">Loan Amount:</label>
+        <input
+          type="number"
+          class="border-0 py-2 shadow"
+          id="principal"
+          placeholder=""
+        />
+        <br /><br />
+
+        <label for="rate">Interest Rate (annual):</label>
+        <input
+          type="number"
+          class="border-0 py-2 shadow"
+          id="rate"
+          placeholder=""
+        />
+        <br /><br />
+
+        <label for="term">Loan Term (months):</label>
+        <input
+          type="number"
+          class="border-0 py-2 shadow"
+          id="term"
+          placeholder=""
+        />
+        <br /><br />
+
+        <button onclick="calculateEMI()" class="me-4 border-0 py-2 px-3">
+          Calculate EMI
+        </button>
+
+        <button onclick="resetInput()" class="border-0 py-2 px-4">Reset</button>
+        <br /><br />
+
+        <label for="result">EMI (Monthly Installment):</label><br /><br />
+        <input type="text" class="border-0 shadow-lg" id="result" readonly />
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function calculateEMI() {
+        const principal = document.getElementById("principal").value;
+        const rate = document.getElementById("rate").value / 1200; // Monthly interest rate
+        const term = document.getElementById("term").value;
+
+        if (principal && rate && term) {
+          const emi = (principal * rate) / (1 - Math.pow(1 + rate, -term));
+          document.getElementById("result").value = emi.toFixed(2); // Display EMI with two decimal places
+        } else {
+          alert("Please enter all fields."); // Show an alert if any field is empty
+        }
+      }
+      function resetInput() {
+        document.getElementById("principal").value = "";
+        document.getElementById("rate").value = "";
+        document.getElementById("term").value = "";
+        document.getElementById("result").value = "";
+      }
+    </script>
+  </body>
+</html>
