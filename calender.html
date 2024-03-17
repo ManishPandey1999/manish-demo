@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project</title>
+    <style>
+      body {
+        background-color: cyan;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .calender-container {
+        width: 35%;
+        background-color: antiquewhite;
+        padding: 2rem;
+        text-align: center;
+        border-radius: 20px;
+      }
+      .year {
+        background-color: blue;
+        color: #fff;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+      .month {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: red;
+      }
+      .date {
+        font-size: 1rem;
+        font-size: 2rem;
+        background-color: rgb(174, 245, 227);
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+      .day {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calender-container">
+      <div class="year"></div>
+      <div class="month"></div>
+      <div class="date"></div>
+      <div class="day"></div>
+    </div>
+
+    <script>
+      let year = document.querySelector(".year");
+      let month = document.querySelector(".month");
+      let date = document.querySelector(".date");
+      let day = document.querySelector(".day");
+      let myDate = new Date();
+      year.textContent = myDate.getFullYear();
+      month.textContent = myDate.toLocaleString("en-us", { month: "long" });
+      date.textContent = myDate.getDate();
+      day.textContent = myDate.toLocaleString("en-US", { weekday: "long" });
+    </script>
+  </body>
+</html>
