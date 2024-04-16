@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        .main-navbar{background-color: antiquewhite; padding: 10px 30px;}
+        .navbar-div-a, .navbar-rgt-sect, .navbar-menu-list, .navbar-menu-list ul{display: flex; justify-content: space-between; align-items: center;}
+        .navbar-mob-main-btn{display: none;}
+        .navbar-menu-list{gap: 15px;}
+        .navbar-menu-list ul{list-style: none; gap: 25px; margin-right: 15px; font-size: 17px;}
+        .navbar-logo{font-size: 38px;}
+        .navbar-menu-list a{font-size: 17px; text-decoration: none; padding: 4px 8px; border-radius: 7px;}
+        .navbar-menu-list .navbar-signin-btn{border: 1px solid #110246; color: #110246;}
+        .navbar-menu-list .navbar-signup-btn{border: 1px solid #110246; background-color: #110246; color: #fff;}
+        @media(max-width: 767px){
+            .navbar-mob-main-btn{display: block; border: 1px solid #110246; color: #110246;
+            padding:0 7px; font-size: 22px; cursor: pointer;}
+            .navbar-menu-list{display: none;}
+            .show{display: block; position: absolute; left: 0; top: 64px; background-color: #faebd7; padding-top: 15px; width: 100%;}
+            .navbar-menu-list ul{flex-direction: column; align-items: start; padding-left: 15px;}
+            .navbar-menu-list a{display: block; text-align: center; width: 60%; margin: 15px auto;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="navbar-div-a">
+            <div class="navbar-lft-sect">
+                <h1 class="navbar-logo">LOGO</h1>
+            </div>
+            <div class="navbar-rgt-sect">
+                <div class="navbar-mob-main-btn" id="navbarMainbtn">&#9776;</div>
+                <div class="navbar-menu-list" id="navbarMenulist" onclick="navbarTogglelist()">
+                    <ul>
+                        <li>Home</li>
+                        <li>About us</li>
+                        <li>Project</li>
+                        <li>Other link</li>
+                        <li>Contact us</li>
+                    </ul>
+                    <a href="javascript:void(0);" class="navbar-signin-btn">Sign in</a>
+                    <a href="javascript:void(0);" class="navbar-signup-btn">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <script>
+        // JavaScript for toggling mobile navbar
+        const navbarToggle = document.getElementById('navbarMainbtn');
+        const navbarDropdown = document.getElementById('navbarMenulist');
+      
+        function navbarTogglelist() {
+            console.log('Navbar toggle button clicked');
+            navbarDropdown.classList.toggle('show');
+            console.log(navbarDropdown.classList);
+        };
+      
+        // Close the dropdown if the user clicks outside of it
+        navbarToggle.addEventListener('click', function(event) {
+            console.log('Navbar toggle button clicked');
+            if (navbarDropdown.classList.contains('show')) {
+                navbarDropdown.classList.remove('show');
+            } else {
+                navbarDropdown.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>
