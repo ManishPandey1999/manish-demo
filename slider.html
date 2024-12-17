@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        
+        .mainpage-mainsubhead{font-size:22px; font-weight:600; margin-bottom:7px; position: relative;}
+        .mainpage-mainsubpara{font-size:17px; margin-bottom:20px;}
+        .inmainbox-section.addons-mainsect .inmainbox-product-details .inmainbox-innerboxhead{border-top: none;}
+        .inmainbox-section.addons-mainsect .product-details-box{min-height: 180px;}
+        .inmainbox-section.addons-mainsect .addon-request-btn{position: absolute; bottom: 15px;}
+
+        .avail{position: absolute; right: 0;}
+        .mainpage-mainsubhead img{width: 26px; margin-right:10px;}
+        .mainpage-mainsubpara{font-size:16px; font-weight:500; margin-bottom:20px;}
+        .integration-gateway-logo{width: 110px;}
+        .inmainbox-section .inmainbox-mainbox{background:#fff; padding: 30px; border-radius:10px;}
+        .inmainbox-section .inmainbox-product-box{background:#eff4ee; padding:5px 20px; border-radius:10px; margin-bottom:20px; position: relative;}
+        .inmainbox-section .inmainbox-innerhead{position: relative; font-size:18px; font-weight:500; padding:10px 0; cursor: pointer;}
+        .inmainbox-section .inmainbox-innerhead img{width: 30px; margin-right:12px;}
+        .inmainbox-section .inmainbox-innerhead i{position: absolute; top:16px; right:10px; transition: transform 0.3s ease;}
+        .inmainbox-section .inmainbox-product-details{display:none; margin-top:20px; overflow:hidden; transition: max-height 0.3s ease-out; padding-bottom: 15px;}
+        .inmainbox-section .inmainbox-product-details.active{display:flex;}
+        .inmainbox-section .inmainbox-product-details.active .inmainbox-innerhead i{transform: rotate(45deg);}
+        .inmainbox-section .product-details-box{background:#fff; padding:15px; border-radius:10px; position: relative; min-height: 230px; width: 100%;}
+        .inmainbox-section .inmainbox-product-details .inmainbox-innerboxlogo{width: 42px; border: 1px solid #eee; padding: 5px; border-radius: 9px; box-shadow: 0 0 5px #eee;}
+        .inmainbox-section .inmainbox-product-details .inmainbox-innerboxhead{margin:10px 0; font-size: 16px; font-weight:600; border-top: 1px solid #eee; padding-top: 8px;}
+        .inmainbox-section .inmainbox-product-details .inmainbox-innerboxpara{margin:0; font-size:14px;}
+        .inmainbox-product-details .product-connected{position: absolute; top:16px; right:15px; font-size:13px; background:#0e940f; color:#fff; border-radius:6px; padding: 4px 10px; box-shadow:0 0 5px #eee; cursor: pointer;}
+        .inmainbox-product-details .product-notconnected{position: absolute; top:14px; right:15px; font-size:13px; background:#cdf364; color:#6c6464; border-radius:6px; padding: 4px 10px; box-shadow:0 0 5px #d8d3d3; cursor: pointer; font-weight: 500;}
+
+        .nointegration-available-box{gap: 30px;}
+        .nointegration-available-box .nointegrate-head{font-size: 26px; font-weight: 500; margin-bottom: 20px;}
+        .nointegration-available{height: 100%; display: flex; align-items: center; justify-content: center;}
+        .nointegration-available .nointegration-text{text-align: center;}
+        .inmainbox-product-box.active .mySwiper{width: 100%; height: auto; overflow: visible !important;}
+
+        .inmainbox-product-box .swiper-pagination {
+            display: none;
+        }
+        .inmainbox-product-box .swiper {
+          width: 100%;
+          height: 100%;
+        }
+
+        .inmainbox-product-box .swiper-slide {
+          font-size: 18px;
+          background: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+        }
+        .inmainbox-product-box .swiper-button-next, .inmainbox-product-box .swiper-button-prev{background-color: #063c4f;color: #fff; padding: 6px; border-radius: 50%; height: 35px; width: 35px;}
+        .inmainbox-product-box .swiper-button-next{right: -18px;}
+        .inmainbox-product-box .swiper-button-prev{left: -18px;}
+        .inmainbox-product-box .swiper-button-next:after, .inmainbox-product-box .swiper-button-prev:after{font-size: 14px; font-weight: 700;}
+        .inmainbox-product-box .inmainbox-innergotobtn{display: flex; justify-content: center; align-items: center;}
+
+
+      @media(max-width:767px){
+          .common-btn{padding: 8px 12px; font-size: 14px;}
+          .avail{right: -11px; top: -4px;}
+          .avail .common-btn{font-size: 12px; padding: 6px;}
+          .addons-section .addons-mainbox{padding:8px;}
+          .mainpage-mainsubhead{font-size:18px; margin-bottom:8px;}
+          .mainpage-mainsubpara{font-size: 15px; font-weight: 400;}
+
+          .inmainbox-section .inmainbox-mainbox{padding:15px;}
+          .inmainbox-section .inmainbox-product-box{padding: 5px 14px; margin-bottom:10px;}
+          .inmainbox-section .inmainbox-product-box.active{padding: 10px 14px;}
+          .inmainbox-section .inmainbox-product-details{margin-top: 8px;}
+          .inmainbox-section .inmainbox-innerhead{font-size:15px; padding: 7px 0;}
+          .inmainbox-section .inmainbox-innerhead img{width: 25px; margin-right:10px;}
+          .inmainbox-section .inmainbox-innerhead i{font-size:12px;}
+          .inmainbox-section .product-details-box{width: 100%; padding: 10px;}
+          .inmainbox-product-details .product-connected{font-size:12px; padding: 3px 8px;}
+          .inmainbox-section .inmainbox-product-details .inmainbox-innerboxlogo{width: 30px; float: left; margin-right:10px;}
+          .inmainbox-section .inmainbox-product-details .inmainbox-innerboxhead{margin:45px 0 8px 0; font-size:16px;}
+          .inmainbox-section.addons-mainsect .inmainbox-product-details .inmainbox-innerboxhead{margin: 0;}
+          .inmainbox-section.addons-mainsect .product-details-box{min-height: 150px;}
+          .inmainbox-section .inmainbox-product-details .inmainbox-innerboxpara{font-size:14px;}
+          .inmainbox-product-details .product-notconnected{font-size:12px; padding: 3px 7px;}
+          .mySwiper .swiper-slide {width: 100% !important; margin-right: 0 !important;}
+          .swiper-button-next,
+          .swiper-button-prev {
+              display: none !important;
+          }
+          .inmainbox-product-box .swiper-pagination {
+              display: block;
+              bottom: -7px !important;
+          }
+
+          .setting-mainsect{flex-direction: column;}
+          .setting-mainsect .setting-leftsidebar{width: 100%; margin: auto; height: auto; border: none;}
+          .setting-user-detail{padding-bottom: 15px; margin-top: 15px;}
+          .setting-user-detail .user-edit-icon{height: 100px; width: 100px;}
+          .setting-mainsect .setting-leftsidebar .setting-sidebar-head{margin-top: 0; padding: 12px; font-size: 18px;}
+          .setting-mainsect .setting-right-sect{width: 100%; margin: auto;}
+          .setting-mainsect .setting-right-sect .setting-personal-info{margin: 0; margin-top: 15px; padding: 15px;}
+          .ourplan-product-section{padding: 15px;}
+          .setting-right-sect .name-input-field, .setting-personal-info .user-password-change{flex-direction: column; gap: 20px;}
+          .setting-right-sect .name-input-field .form-group, .setting-personal-info .user-password-change .form-group{width: 100%;}
+          .planbox-section{width: 100%; margin: auto;}
+          .ourplan-product-section .product-plans-details .plans-details-head{font-size: 18px;}
+          .ourplan-product-section .product-plans-details .feature-list{flex-direction: column;}
+          .ourplan-product-section .product-plans-details .feature-list li{width: 100%; font-size: 15px;}
+          .ourplan-product-section .plan-product-mainbox .product-head{font-size: 16px;}
+          .active-planbox-section .plan-header{flex-direction: column; align-items: start;}
+          .active-planbox-section .planbox-price{margin-left: 0;}
+          .ourplan-product-section .plan-product-mainbox .product-head{padding: 7px 0 7px 15px;}
+          .ourplan-product-section .plan-product-mainbox .product-head img{width: 25px;}
+          .ourplan-product-section .plan-product-mainbox .product-head i{top: 10px; font-size: 14px;}
+          .ourplan-product-section .product-plans-details .feature-list li:before{top: 1px; left: -28px; height: 18px; width: 18px;}
+          .ourplan-product-section .product-plans-details .feature-list li:after{left: -24px; border-width: 2px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="body-content-inner">
+
+        <div class="inmainbox-section">
+
+            <div class="inmainbox-mainbox">
+
+                <h2 class="mainpage-mainsubhead">Available Integrations</h2>
+                <p class="mainpage-mainsubpara">Connect your favourite apps with available integrations. Contact our team for any support.</p>
+
+                <div class="inmainbox-product-box active">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-1.webp"> CRM <i class="fa fa-plus" style="transform: rotate(45deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="swiper-wrapper-a10e08e5220f4d9c1" aria-live="polite" style="display: flex;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 4" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/zoom-integration.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Zoom</h1>
+                                    <p class="inmainbox-innerboxpara">Zoom is a video conferencing app enabling online meetings, webinars, and collaboration, perfect for businesses, educators, and individuals to connect from anywhere.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 4" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/twilio.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Twilio (SMS &amp; Voice)</h1>
+                                    <p class="inmainbox-innerboxpara">Twilio enables businesses to integrate SMS and voice communication into applications, providing seamless customer interaction and efficient communication solutions.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 4" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-notconnected">Coming Soon</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/zendesk.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Zendesk</h1>
+                                    <p class="inmainbox-innerboxpara">Zendesk is a customer service platform offering tools for support, ticketing, and communication, helping businesses enhance customer experiences and streamline operations efficiently.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 4" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-a10e08e5220f4d9c1" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-a10e08e5220f4d9c1" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-8.webp"> Social <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="integrationCrousal" aria-live="polite" style="display: none;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/facebook.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Facebook</h1>
+                                    <p class="inmainbox-innerboxpara">Facebook is a social media platform for connecting with friends, sharing content, and engaging with communities, offering tools for personal interaction and business growth.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/telegram.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Telegram</h1>
+                                    <p class="inmainbox-innerboxpara">Telegram is a messaging app offering fast, secure communication, group chats, file sharing, and channels, ideal for personal use and community engagement.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/x.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">X</h1>
+                                    <p class="inmainbox-innerboxpara">X (formerly Twitter) is a social media platform for sharing updates, engaging in conversations, and discovering trends, connecting users globally in real-time.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/whatsapp.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">WhatsApp</h1>
+                                    <p class="inmainbox-innerboxpara">WhatsApp is a messaging app that allows text, voice, and video communication, enabling secure, real-time conversations and file sharing with individuals and groups.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="5 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/youtube.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">YouTube</h1>
+                                    <p class="inmainbox-innerboxpara">YouTube is a video-sharing platform where users can upload, watch, and engage with content, offering a wide range of entertainment, education, and creative expression.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="6 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/googlebusiness.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Google Business</h1>
+                                    <p class="inmainbox-innerboxpara">Google Business is a platform that helps businesses manage their online presence, making it easier to connect with customers, share information, and improve visibility on Google Search and Maps.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="7 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box socialslidebox">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/pinterest.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Pinterest</h1>
+                                    <p class="inmainbox-innerboxpara">Pinterest is a visual discovery and bookmarking platform where users can find, save, and share ideas on various topics like fashion, home decor, and recipes.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="8 / 8" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="integrationCrousal" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="integrationCrousal" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-4.webp"> Chat <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="swiper-wrapper-108d55e5a465d10343" aria-live="polite" style="display: none;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/whatsapp.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">WhatsApp</h1>
+                                    <p class="inmainbox-innerboxpara">WhatsApp is a messaging app that allows users to send text, voice messages, make calls, and share media, offering secure, real-time communication for individuals and groups.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/facebook.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Facebook</h1>
+                                    <p class="inmainbox-innerboxpara">Facebook is a social media platform that allows users to connect with friends, share updates, photos, and videos, and engage with communities and businesses.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/telegram.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Telegram</h1>
+                                    <p class="inmainbox-innerboxpara">Telegram is a messaging app offering fast, secure communication, with features like group chats, file sharing, and channels, designed for both personal and professional use. </p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/x.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">X</h1>
+                                    <p class="inmainbox-innerboxpara">X (formerly Twitter) is a social media platform for sharing short posts, engaging in conversations, and staying updated on trends and news in real-time.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="5 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/slack.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Slack</h1>
+                                    <p class="inmainbox-innerboxpara">Slack is a collaboration platform that streamlines communication within teams, offering messaging, file sharing, and integrations to enhance productivity and teamwork.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="6 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/openai.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">OpenAI</h1>
+                                    <p class="inmainbox-innerboxpara">OpenAI is an artificial intelligence research organization focused on developing advanced AI technologies, including language models, to benefit humanity and promote responsible AI usage.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="7 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/viber.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Viber</h1>
+                                    <p class="inmainbox-innerboxpara">Viber is a messaging app that enables users to send text, make voice and video calls, and share media, offering secure communication for individuals and groups worldwide.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="8 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/zendesk.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Zendesk</h1>
+                                    <p class="inmainbox-innerboxpara">Zendesk is a customer service platform that provides tools for ticketing, live chat, and support management, helping businesses improve customer satisfaction and streamline service operations.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="9 / 10" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/email.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Email</h1>
+                                    <p class="inmainbox-innerboxpara">Email is a digital communication method that allows users to send, receive, and store messages and files over the internet, widely used for both personal and business correspondence.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="10 / 10" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-108d55e5a465d10343" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-108d55e5a465d10343" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-2.webp"> Campaigns <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="swiper-wrapper-978fece59657fc42" aria-live="polite" style="display: none;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-mailerSend.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">MailerSend</h1>
+                                    <p class="inmainbox-innerboxpara">MailerSend is a transactional email gateway enabling businesses to send automated emails, offering easy API integration, advanced analytics, and a user-friendly interface.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/camp-smtp2go.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">SMTP2Go</h1>
+                                    <p class="inmainbox-innerboxpara">SMTP2Go is a reliable email delivery service that ensures secure and fast email sending, offering easy integration, analytics, and spam-free delivery.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-SendPulse.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">SendPulse</h1>
+                                    <p class="inmainbox-innerboxpara">SendPulse is a multi-channel marketing platform offering email, SMS, and push notifications, with easy integration, automation, and analytics for effective communication.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-Brevo.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Brevo</h1>
+                                    <p class="inmainbox-innerboxpara">Brevo is a marketing platform offering email campaigns, SMS, and automation tools, with easy integration and analytics for streamlined customer communication.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="5 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-Mailjet.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Mailjet</h1>
+                                    <p class="inmainbox-innerboxpara">Mailjet is an email marketing platform enabling businesses to send transactional and marketing emails, offering easy integration, automation, and real-time analytics.</p>
+                                </div>
+                            </div>
+                            <!-- <div class="swiper-slide">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-mailerSend.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Aha Send</h1>
+                                    <p class="inmainbox-innerboxpara">AhaSend is a communication platform offering email marketing, SMS, and automation tools, ensuring easy integration and efficient customer engagement.</p>
+                                </div>
+                            </div> -->
+                            <div class="swiper-slide" role="group" aria-label="6 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-Mailtrap.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Mailtrap</h1>
+                                    <p class="inmainbox-innerboxpara">Mailtrap is an email testing tool that allows developers to safely test and debug emails, offering easy integration, spam analysis, and detailed diagnostics.</p>
+                                </div>
+                            </div>
+                            <!-- <div class="swiper-slide">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-mailerSend.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Postmark</h1>
+                                    <p class="inmainbox-innerboxpara">Postmark is a transactional email service focused on fast delivery, reliability, and easy integration, ideal for sending secure emails like receipts and notifications.</p>
+                                </div>
+                            </div> -->
+                            <div class="swiper-slide" role="group" aria-label="7 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-SendGrid.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">SendGrid</h1>
+                                    <p class="inmainbox-innerboxpara">SendGrid is a cloud-based email delivery platform enabling businesses to send transactional and marketing emails, offering easy integration, analytics, and scalability.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="8 / 9" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-Gmail.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Gmail</h1>
+                                    <p class="inmainbox-innerboxpara">Gmail is a secure and user-friendly email service by Google, offering robust features like spam filtering, integrations, and efficient communication for personal and professional use.</p>
+                                </div>
+                            </div>
+                            <!-- <div class="swiper-slide">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="inmainbox-innerboxlogo" src="images/camp-mailerSend.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Elastic Email</h1>
+                                    <p class="inmainbox-innerboxpara">Elastic Email is an email delivery platform that provides bulk email sending, automation, and analytics, offering easy integration and reliable performance for businesses.</p>
+                                </div>
+                            </div> -->
+                            <div class="swiper-slide" role="group" aria-label="9 / 9" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-978fece59657fc42" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-978fece59657fc42" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-3.webp"> Helpdesk <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="swiper-wrapper-d16528810ff9b543b" aria-live="polite" style="display: none;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 6" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/email.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Email</h1>
+                                    <p class="inmainbox-innerboxpara">Email is a digital communication method for sending and receiving messages and files over the internet, widely used for personal and professional use.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 6" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/facebook.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Facebook</h1>
+                                    <p class="inmainbox-innerboxpara">Facebook is a social media platform for connecting with friends, sharing updates, photos, and videos, and engaging with communities and businesses.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 6" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/telegram.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Telegram</h1>
+                                    <p class="inmainbox-innerboxpara">Telegram is a messaging app for fast, secure communication, offering features like group chats, file sharing, and channels for personal and professional use.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 6" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/x.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">X</h1>
+                                    <p class="inmainbox-innerboxpara">X (formerly Twitter) is a social media platform for sharing short posts, engaging in real-time conversations, and staying updated on trends and news.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="5 / 6" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <img class="inmainbox-innerboxlogo" src="images/linkedin.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">LinkedIn</h1>
+                                    <p class="inmainbox-innerboxpara">LinkedIn is a professional networking platform that allows users to connect, share industry insights, and showcase skills, fostering career growth and business opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="6 / 6" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-d16528810ff9b543b" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-d16528810ff9b543b" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-9.png"> Sites <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-css-mode">
+                        <div class="inmainbox-product-details swiper-wrapper" id="swiper-wrapper-24d6781c64dd64107" aria-live="polite" style="display: none;">
+                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/stripe-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Stripe</h1>
+                                    <p class="inmainbox-innerboxpara">Stripe is a secure payment gateway enabling businesses to accept various online payments with easy integration, fraud prevention, and recurring billing features.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/2checkout-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">2Checkout</h1>
+                                    <p class="inmainbox-innerboxpara">2Checkout is a global payment gateway that allows businesses to accept online payments securely, supporting multiple payment methods and currencies with easy integration.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="3 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/paypal-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">PayPal</h1>
+                                    <p class="inmainbox-innerboxpara">PayPal is a widely used payment gateway that enables secure online transactions, supporting multiple payment methods with easy integration for businesses and consumers.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="4 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/afterpay-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">afterpay</h1>
+                                    <p class="inmainbox-innerboxpara">Afterpay is a payment gateway that allows customers to buy now and pay later, offering interest-free installments and easy integration for businesses.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="5 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/mobilpay-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Mobilpay</h1>
+                                    <p class="inmainbox-innerboxpara">MobilPay is a secure payment gateway that allows businesses to accept online and in-store payments via mobile devices, offering easy integration and multi-method support.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="6 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/paystack-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">Paystack</h1>
+                                    <p class="inmainbox-innerboxpara">Paystack is a payment gateway that enables businesses to accept online payments securely, supporting cards, bank transfers, and mobile money with easy integration.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="7 / 8" style="width: 345.333px; margin-right: 30px;">
+                                <div class="product-details-box">
+                                    <span class="product-connected">Available</span>
+                                    <img class="integration-gateway-logo" src="images/payfast-gateway.png" alt="Zoom logo">
+                                    <h1 class="inmainbox-innerboxhead">payFast</h1>
+                                    <p class="inmainbox-innerboxpara">PayFast is a payment gateway that allows businesses to accept secure online payments, supporting various payment methods with easy integration and fast processing.</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" role="group" aria-label="8 / 8" style="width: 345.333px;">
+                                <div class="product-details-box socialslidebox inmainbox-innergotobtn">
+                                    <div class="inmainbox-go-to-btn">
+                                        <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-24d6781c64dd64107" aria-disabled="false"></div>
+                        <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-24d6781c64dd64107" aria-disabled="true"></div>
+                        <div class="swiper-pagination"></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-5.webp"> AI Writer <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="inmainbox-product-details nointegration-available-box" style="display: none;">
+                        <div class="product-details-box">
+                            <div class="nointegration-available">
+                                <div class="nointegration-text">
+                                <h1 class="nointegrate-head">No integrations available</h1>
+                                <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-6.webp"> Voice <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="inmainbox-product-details nointegration-available-box" style="display: none;">
+                        <div class="product-details-box">
+                            <div class="nointegration-available">
+                                <div class="nointegration-text">
+                                <h1 class="nointegrate-head">No integrations available</h1>
+                                <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img src="../images/hub-s-7.webp"> Project <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="inmainbox-product-details nointegration-available-box" style="display: none;">
+                        <div class="product-details-box">
+                            <div class="nointegration-available">
+                                <div class="nointegration-text">
+                                <h1 class="nointegrate-head">No integrations available</h1>
+                                <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img alt="Getyn Cloud" src="../images/invoice-head-logo-menu.png"> Invoice <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="inmainbox-product-details nointegration-available-box" style="display: none;">
+                        <div class="product-details-box">
+                            <div class="nointegration-available">
+                                <div class="nointegration-text">
+                                <h1 class="nointegrate-head">No integrations available</h1>
+                                <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inmainbox-product-box">
+                    <div class="inmainbox-innerhead"><img alt="Getyn Cloud" src="../images/lms-head-logo-menu.png"> LMS <i class="fa fa-plus" style="transform: rotate(0deg);"></i></div>
+                    <div class="inmainbox-product-details nointegration-available-box" style="display: none;">
+                        <div class="product-details-box">
+                            <div class="nointegration-available">
+                                <div class="nointegration-text">
+                                <h1 class="nointegrate-head">No integrations available</h1>
+                                <a class="common-btn" href="javascript:void(0)">Go to app <span class="arrow-btn"><img src="/users/images/arrow-btn.png"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const integrationBoxes = document.querySelectorAll('.inmainbox-product-box');
+
+        const firstBox = integrationBoxes[0];
+        firstBox.classList.add('active');
+        firstBox.querySelector('.inmainbox-product-details').style.display = 'flex';
+        firstBox.querySelector('.inmainbox-innerhead i').style.transform = 'rotate(45deg)';
+
+        integrationBoxes.forEach(box => {
+            const header = box.querySelector('.inmainbox-innerhead');
+            header.addEventListener('click', () => {
+                const details = box.querySelector('.inmainbox-product-details');
+                const icon = box.querySelector('.inmainbox-innerhead i');
+
+                document.querySelectorAll('.inmainbox-product-box').forEach(otherBox => {
+                    if (otherBox !== box) {
+                        otherBox.classList.remove('active');
+                        otherBox.querySelector('.inmainbox-product-details').style.display = 'none';
+                        const otherIcon = otherBox.querySelector('.inmainbox-innerhead i');
+                        otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                if (box.classList.contains('active')) {
+                    box.classList.remove('active');
+                    details.style.display = 'none';
+                    icon.style.transform = 'rotate(0deg)'
+                } else {
+                    box.classList.add('active');
+                    details.style.display = 'flex';
+                    icon.style.transform = 'rotate(45deg)'
+                }
+            });
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        cssMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        mousewheel: true,
+        keyboard: true,
+        breakpoints: {
+            0: { 
+                slidesPerView: 1, 
+                spaceBetween: 10,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: false,
+            },
+            768: { 
+                slidesPerView: 2, 
+                spaceBetween: 20,
+                pagination: false,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            },
+            1024: {
+                slidesPerView: 3, 
+                spaceBetween: 30,
+                pagination: false,
+            },
+        }
+    });
+</script>
+</body>
+</html>
